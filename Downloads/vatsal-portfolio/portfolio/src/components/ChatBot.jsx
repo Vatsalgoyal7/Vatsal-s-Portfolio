@@ -64,13 +64,12 @@ async function callGemini(history) {
   }
 
   // Try with key as query param first (standard), fallback to Bearer header
-  const urlWithKey = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`
+  const urlWithKey = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`
 
   const res = await fetch(urlWithKey, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GEMINI_KEY}`,
     },
     body: JSON.stringify(body)
   })
