@@ -97,6 +97,8 @@ export default function Home() {
             <span className="id-pill cyan">💻 Developer</span>
             <span className="id-pill pink">🎨 Designer</span>
             <span className="id-pill amber">💼 Freelancer</span>
+            <span className="id-pill blue">🔵 Gemini Ambassador</span>
+            <span className="id-pill green">⛓️ Startup Founder</span>
           </div>
 
           <h1 className="hero-name fade-up" style={{ animationDelay: '0.28s' }}>
@@ -116,18 +118,18 @@ export default function Home() {
 
           <div className="hero-cta fade-up" style={{ animationDelay: '0.68s' }}>
             <Link to="/projects" className="btn-primary">See my work →</Link>
-            <a href={`mailto:${links.email}`} className="btn-ghost">Email me</a>
+            <a href="https://drive.google.com/file/d/17Iq6gPvLKAHPI6dqbPmC9Z8zJX1TQ0j6/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" className="btn-ghost">📄 Resume</a>
           </div>
 
           {/* Quick stats row */}
           <div className="hero-stats fade-up" style={{ animationDelay: '0.82s' }}>
             <div className="stat-item">
-              <span className="stat-num">3+</span>
+              <span className="stat-num">7+</span>
               <span className="stat-lbl">Projects shipped</span>
             </div>
             <div className="stat-sep" />
             <div className="stat-item">
-              <span className="stat-num">4</span>
+              <span className="stat-num">8+</span>
               <span className="stat-lbl">Hackathons</span>
             </div>
             <div className="stat-sep" />
@@ -158,7 +160,7 @@ export default function Home() {
                 {b.label}
               </span>
             ))}
-            <img src="/vatsal.jpg" alt="Vatsal Goyal" className="hero-photo" />
+            <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="hero-photo" />
             <div className="hero-photo-glow" />
             {/* Orbit ring */}
             <div className="photo-ring" />

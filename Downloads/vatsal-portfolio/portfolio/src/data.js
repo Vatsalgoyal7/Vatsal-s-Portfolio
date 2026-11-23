@@ -5,7 +5,7 @@ export const links = {
   instagram: 'https://www.instagram.com/vatsalgoyal.7/',
   email:     'vatsalgoyal77@gmail.com',
   whatsapp:  'https://wa.me/917452027691',
-  resume:    'https://drive.google.com/your-resume-link', // update with real link
+  resume:    'https://drive.google.com/file/d/17Iq6gPvLKAHPI6dqbPmC9Z8zJX1TQ0j6/view?usp=drivesdk',
 }
 
 /* ── Projects ── */
@@ -23,7 +23,7 @@ export const projects = [
   {
     name:    'TrueChain',
     tagline: 'Blockchain Food Provenance & Anti-Counterfeiting',
-    desc:    'Blockchain-based end-to-end food supply-chain traceability and counterfeit detection system. Founded the platform; won 3rd Place at HackWithUttarPradesh 2025 (21,000+ registrations, ₹10k prize). Pitched at IIT Delhi Startup Incubation.',
+    desc:    'Blockchain-based B2B SaaS platform for end-to-end food supply-chain traceability. Farmers connect to manufacturers, distributors, wholesalers, and retailers via trackable transportation modes. Prevents counterfeiting with on-chain provenance. Won 3rd Place at HackWithUttarPradesh 2025 (21,000+ registrations, ₹10k prize). Pitched at IIT Delhi eDC INCon 2026 Incubator Summit.', 
     tech:    ['TypeScript', 'Node.js', 'React', 'Ethereum', 'Blockchain'],
     status:  'Live',
     link:    '#',

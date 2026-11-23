@@ -61,7 +61,7 @@ export default function About() {
             ))}
           </div>
         </div>
-        <img src="/vatsal.jpg" alt="Vatsal Goyal" className="about-photo" />
+        <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="about-photo" />
       </div>
 
       {/* ── Achievement stats ── */}
@@ -74,7 +74,30 @@ export default function About() {
         ))}
       </div>
 
-      {/* ── Timeline ── */}
+      {/* ── Photo Gallery ── */}
+      <section className="photo-gallery reveal" style={{ animationDelay: '0.18s' }}>
+        <h2 className="section-title">Moments That Matter</h2>
+        <div className="gallery-grid">
+          <div className="gallery-item gi-tall">
+            <img src="/images/hackwithup-stage.jpg" alt="Winning ₹10k at HackWithUttarPradesh, Chandigarh University" />
+            <div className="gallery-caption">🏆 HackWithUP 2025 — 3rd Place, ₹10k Prize · Chandigarh University</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/hackwithup-college.jpg" alt="Team celebration at IMS Engineering College" />
+            <div className="gallery-caption">🎉 Celebration at IMSEC with Director & HODs</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/vatsal-certificate.jpg" alt="Receiving certificate for Chakravyuh 2K26" />
+            <div className="gallery-caption">📜 Certificate for Chakravyuh 2K26 from IMSEC Director</div>
+          </div>
+          <div className="gallery-item gi-wide">
+            <img src="/images/iit-delhi-incubator.jpg" alt="IIT Delhi eDC INCon 2026 Incubator Summit" />
+            <div className="gallery-caption">🚀 TrueChain at IIT Delhi eDC INCon 2026 — Incubator Summit</div>
+          </div>
+        </div>
+      </section>
+
+
       <section className="about-timeline reveal" style={{ animationDelay: '0.2s' }}>
         <h2 className="section-title">Journey So Far</h2>
         <div className="timeline-list">
