@@ -155,6 +155,30 @@ export default function About() {
           ))}
         </div>
       </section>
+
+      {/* ── Hobbies ── */}
+      <section className="hobbies-section reveal" style={{ animationDelay: '0.35s' }}>
+        <h2 className="section-title">Beyond the Code</h2>
+        <p className="hobbies-sub">When I'm not building things, here's what you'll find me doing:</p>
+        <div className="hobbies-grid">
+          {[
+            { icon: '🏸', label: 'Badminton',   desc: 'Court hustle, smashes & quick reflexes' },
+            { icon: '🏀', label: 'Basketball',  desc: 'Team sport, strategy & fast breaks' },
+            { icon: '♟️', label: 'Chess',        desc: 'Thinking 10 moves ahead, always' },
+            { icon: '🏏', label: 'Cricket',      desc: 'Weekend matches & big sixes' },
+            { icon: '🏊', label: 'Swimming',     desc: 'Clear mind, clean strokes' },
+            { icon: '✈️', label: 'Travel',       desc: 'Exploring new cities & cultures' },
+            { icon: '🍜', label: 'Food Hunting', desc: 'Street food to fine dining — all in' },
+            { icon: '💡', label: 'Building',     desc: 'Side projects, wild ideas, late nights' },
+          ].map(h => (
+            <div key={h.label} className="hobby-card">
+              <span className="hobby-icon">{h.icon}</span>
+              <h4 className="hobby-label">{h.label}</h4>
+              <p className="hobby-desc">{h.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }
