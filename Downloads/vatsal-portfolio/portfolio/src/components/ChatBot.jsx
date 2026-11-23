@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 
 /* ── API Keys from .env ── */
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
-const VATSAL_WA  = import.meta.env.VITE_VATSAL_WA
+const NIM_KEY   = import.meta.env.VITE_NIM_KEY
+const VATSAL_WA = import.meta.env.VITE_VATSAL_WA
+const NIM_URL   = 'https://integrate.api.nvidia.com/v1/chat/completions'
 
 /* ── System prompt ── */
 const SYSTEM = `You are Vatsal Goyal's personal AI portfolio assistant. Be friendly, short and enthusiastic.
@@ -40,41 +41,38 @@ Rules:
 - If unsure, say "Best to ask Vatsal directly on WhatsApp!"
 - Don't make up info not listed above`
 
-/* ── Call Gemini API ── */
+/* ── Call NVIDIA NIM (Llama) ── */
 async function callAI(history) {
-  const systemTurn = [
-    { role: 'user',  parts: [{ text: `System context (follow these instructions always):\n${SYSTEM}` }] },
-    { role: 'model', parts: [{ text: "Understood! I'm Vatsal's AI assistant, ready to help visitors learn about him. 🚀" }] },
-  ]
-
-  const contents = [
-    ...systemTurn,
+  const messages = [
+    { role: 'system', content: SYSTEM },
     ...history.map(m => ({
-      role: m.from === 'user' ? 'user' : 'model',
-      parts: [{ text: m.text }]
+      role: m.from === 'user' ? 'user' : 'assistant',
+      content: m.text
     }))
   ]
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents,
-        generationConfig: { temperature: 0.8, maxOutputTokens: 300 }
-      })
-    }
-  )
+  const res = await fetch(NIM_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${NIM_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: 'meta/llama-3.3-70b-instruct',
+      messages,
+      temperature: 0.75,
+      max_tokens: 300,
+    })
+  })
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    console.error('Gemini error:', JSON.stringify(err))
-    throw new Error(err?.error?.message || `HTTP ${res.status}`)
+    console.error('AI error:', JSON.stringify(err))
+    throw new Error(err?.message || `HTTP ${res.status}`)
   }
 
   const data = await res.json()
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "Let me try again! 😅"
+  return data.choices?.[0]?.message?.content || "Let me try again! 😅"
 }
 
 
@@ -181,7 +179,7 @@ export default function ChatBot() {
           <div className="cb-avatar">🤖</div>
           <div>
             <div className="cb-title">Vatsal's AI Assistant</div>
-            <div className="cb-subtitle"><span className="cb-dot" /> Powered by Gemini</div>
+            <div className="cb-subtitle"><span className="cb-dot" /> Powered by Llama AI</div>
           </div>
           <button className="cb-close" onClick={() => setOpen(false)}>✕</button>
         </div>
