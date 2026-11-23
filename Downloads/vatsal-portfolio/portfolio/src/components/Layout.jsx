@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { links } from '../data'
 import ChatBot from './ChatBot'
+import ScreenPet from './ScreenPet'
 
 /* ── Aurora + cursor glow ── */
 function Background() {
@@ -97,6 +98,7 @@ export default function Layout({ children }) {
       </footer>
 
       <ChatBot />
+      <ScreenPet />
     </>
   )
 }
