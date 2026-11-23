@@ -1371,8 +1371,114 @@ img { display: block; max-width: 100%; }
 .role-card-period { font-size: 0.72rem; color: var(--muted); margin-bottom: 8px; }
 .role-card-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin: 0; }
 
+/* ─── About Story / Exp Blocks ─── */
+.about-story { margin-bottom: 48px; }
+.story-block {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 36px;
+  align-items: flex-start;
+}
+.story-lead {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.story-text p { color: var(--muted); line-height: 1.8; margin-bottom: 12px; }
+.story-photo {
+  width: 100% !important;
+  height: 320px !important;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid rgba(124,58,237,0.3);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(124,58,237,0.1);
+}
+
+/* Experience blocks with side images */
+.exp-block {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 36px;
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.exp-block:hover {
+  border-color: rgba(124,58,237,0.3);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+.exp-block-reverse { grid-template-columns: 1fr 320px; }
+.exp-block-reverse .exp-images { order: 2; }
+.exp-block-reverse .exp-text { order: 1; }
+
+.exp-images { display: flex; flex-direction: column; gap: 8px; }
+.exp-img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.exp-img-main { height: 200px; }
+.exp-img-side { height: 110px; }
+
+.exp-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a78bfa;
+  margin-bottom: 8px;
+}
+.exp-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+.exp-text p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+/* Role mini cards */
+.about-roles-extra { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+.role-mini-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.role-mini-card:hover { border-color: rgba(124,58,237,0.3); }
+.role-mini-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+.role-mini-card strong { display: block; font-size: 0.95rem; margin-bottom: 4px; }
+.role-mini-sub { display: block; font-size: 0.72rem; color: #a78bfa; font-weight: 600; margin-bottom: 6px; }
+.role-mini-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+@media (max-width: 768px) {
+  .story-block { grid-template-columns: 1fr; }
+  .story-photo { height: 220px !important; }
+  .exp-block, .exp-block-reverse { grid-template-columns: 1fr; }
+  .exp-block-reverse .exp-images { order: 0; }
+  .exp-block-reverse .exp-text { order: 1; }
+  .exp-img-main { height: 180px; }
+  .exp-img-side { height: 120px; }
+}
+
 /* Skills category grid */
 .about-skills-section { margin-bottom: 44px; }
+
 .skills-category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
 .skill-cat-card {
   padding: 18px 20px; border-radius: 16px;

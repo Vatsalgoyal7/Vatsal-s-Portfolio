@@ -160,7 +160,7 @@ export default function Home() {
                 {b.label}
               </span>
             ))}
-            <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="hero-photo" />
+            <img src="/images/vatsal-pro.jpg" alt="Vatsal Goyal" className="hero-photo" />
             <div className="hero-photo-glow" />
             {/* Orbit ring */}
             <div className="photo-ring" />

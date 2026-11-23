@@ -1,29 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
-import { roles, skills } from '../data'
-
-const timeline = [
-  { year: '2024', event: 'Joined IMS Engineering College, Ghaziabad (AKTU) — B.Tech CSE', icon: '🎓' },
-  { year: '2024', event: 'Started building real products — first React projects shipped', icon: '⚡' },
-  { year: '2025', event: 'Founded TrueChain — Blockchain startup. Won ₹10k at HackWithUP (21k+ registrations)', icon: '⛓️' },
-  { year: '2025', event: 'Pitched TrueChain at IIT Delhi Startup Incubation', icon: '🚀' },
-  { year: '2025', event: 'Became Sports Main Coordinator, IMSEC Sports Society', icon: '🏅' },
-  { year: '2025', event: 'Selected as Google Gemini Student Ambassador (GID: 7505)', icon: '🔵' },
-  { year: '2025', event: 'Represented IMSEC at IIT Delhi (eDC Blueprint 6.0) & IIM Shillong (DRISHTI-NE)', icon: '🌐' },
-  { year: '2026', event: 'Generative AI Intern — AKTU-IBM PBEL · Earned IBM SkillsBuild certification', icon: '🤖' },
-  { year: '2026', event: 'Campus Mantri at GeeksforGeeks IMSEC', icon: '💚' },
-  { year: '2026', event: 'RIFT \'26 — VitalGeneAI ranked 6th in Healthcare Track (8k+ registrations)', icon: '🧬' },
-  { year: '2026', event: 'Built Chakravyuh 2K26 — official sports fest platform (AKTU multi-college)', icon: '🏟️' },
-]
-
-const achievements = [
-  { label: '8+',   sub: 'Hackathons', color: '#7c3aed' },
-  { label: '₹10k', sub: 'Prize Won',  color: '#f59e0b' },
-  { label: '21k+', sub: 'Competition registrations', color: '#06b6d4' },
-  { label: '7+',   sub: 'Projects Shipped', color: '#10b981' },
-  { label: '1k+',  sub: 'Students Reached', color: '#ec4899' },
-  { label: '3',    sub: 'IIT/IIM Events',   color: '#a78bfa' },
-]
+import { skills } from '../data'
 
 export default function About() {
   useReveal()
@@ -36,103 +13,212 @@ export default function About() {
         <h1 className="page-title">Builder. Hacker. <em>Founder.</em></h1>
       </div>
 
-      {/* ── Bio + Photo ── */}
-      <div className="about-bio-wrap reveal" style={{ animationDelay: '0.1s' }}>
-        <div className="about-bio-text">
-          <p>
-            Hey! I'm <strong>Vatsal Goyal</strong> — a 3rd-year B.Tech CSE student at <strong>IMS Engineering College, Ghaziabad (AKTU)</strong>,
-            building real products that solve real problems.
-          </p>
-          <p>
-            I'm the <strong>founder of TrueChain</strong> — a blockchain food provenance startup that won <strong>₹10,000 at HackWithUttarPradesh</strong>
-            (21,000+ registrations) and was pitched at <strong>IIT Delhi Startup Incubation</strong>. I've competed in <strong>8+ hackathons</strong> at IITs, IIMs, and national platforms.
-          </p>
-          <p>
-            As a <strong>Google Gemini Student Ambassador (GID: 7505)</strong>, I run AI workshops and promote Google's AI tools to 1,000+ students at IMSEC.
-            I'm also the <strong>Sports Main Coordinator</strong> at IMSEC Sports Society — managing all inter-college and inter-department events.
-          </p>
-          <p>
-            I freelance for <strong>colleges, events, and businesses</strong> — building fast, beautiful web products. If you have a project idea, let's talk! 🚀
-          </p>
+      {/* ── INTRO STORY ── */}
+      <section className="about-story reveal" style={{ animationDelay: '0.1s' }}>
+        <div className="story-block">
+          <div className="story-text">
+            <p className="story-lead">
+              Hey! I'm <strong>Vatsal Goyal</strong> — a full-stack developer, startup founder, and
+              Google Gemini Ambassador from Ghaziabad. I'm currently in my 3rd year of B.Tech CSE
+              at <strong>IMS Engineering College (AKTU)</strong>.
+            </p>
+            <p>
+              I started coding in my first year — not to pass exams, but because I genuinely
+              wanted to build things. Fast forward to today: I've shipped <strong>7+ real products</strong>,
+              competed in <strong>8+ hackathons</strong> at IITs, IIMs, and national stages,
+              and founded a blockchain startup that got incubated at <strong>IIT Delhi</strong>.
+            </p>
+            <p>
+              I believe the best way to learn is to <em>ship</em>. Every project I build solves
+              a real problem — whether it's a college sports fest platform handling thousands of
+              registrations, an AI genomics tool, or a food traceability blockchain.
+            </p>
+          </div>
+          <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="about-photo story-photo" />
+        </div>
+      </section>
 
-          <div className="about-tags">
-            {['Full-Stack Dev', 'Startup Founder', 'AI Enthusiast', 'Google Ambassador', 'Sports Coordinator', 'Freelancer'].map(t => (
-              <span key={t} className="about-tag">{t}</span>
-            ))}
+      {/* ── HACKATHON STORY with photos ── */}
+      <section className="about-story reveal" style={{ animationDelay: '0.15s' }}>
+        <h2 className="section-title">🏆 The Hackathon Journey</h2>
+
+        <div className="exp-block">
+          <div className="exp-images">
+            <img src="/images/hackwithup-stage.jpg" alt="HackWithUP Stage" className="exp-img exp-img-main" />
+            <img src="/images/hackwithup-college.jpg" alt="College Celebration" className="exp-img exp-img-side" />
+          </div>
+          <div className="exp-text">
+            <div className="exp-label">🏆 HackWithUttarPradesh 2025 · Chandigarh University</div>
+            <h3 className="exp-title">3rd Place &amp; ₹10,000 Prize — 21,000+ Registrations</h3>
+            <p>
+              This was the moment everything clicked. We built <strong>TrueChain</strong> — a
+              blockchain-based food provenance system — in 30 hours. The idea: farmers connect
+              to manufacturers, distributors, and retailers through trackable supply chains,
+              preventing counterfeiting at every step.
+            </p>
+            <p>
+              Competing against 21,000+ teams nationally, we took <strong>3rd place in the
+              Blockchain & Web3 track</strong> and walked away with ₹10,000. Coming back to
+              college and celebrating with the Director and HODs — that felt surreal.
+            </p>
           </div>
         </div>
-        <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="about-photo" />
-      </div>
 
-      {/* ── Achievement stats ── */}
-      <div className="achievement-grid reveal" style={{ animationDelay: '0.15s' }}>
-        {achievements.map(a => (
-          <div key={a.label} className="ach-card" style={{ '--ach-color': a.color }}>
-            <span className="ach-num">{a.label}</span>
-            <span className="ach-sub">{a.sub}</span>
+        <div className="exp-block exp-block-reverse">
+          <div className="exp-images">
+            <img src="/images/rift-team.jpg" alt="RIFT Hackathon Team" className="exp-img exp-img-main" />
           </div>
-        ))}
-      </div>
-
-      {/* ── Photo Gallery ── */}
-      <section className="photo-gallery reveal" style={{ animationDelay: '0.18s' }}>
-        <h2 className="section-title">Moments That Matter</h2>
-        <div className="gallery-grid">
-          <div className="gallery-item gi-tall">
-            <img src="/images/hackwithup-stage.jpg" alt="Winning ₹10k at HackWithUttarPradesh, Chandigarh University" />
-            <div className="gallery-caption">🏆 HackWithUP 2025 — 3rd Place, ₹10k Prize · Chandigarh University</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha at IMSEC Seminar" />
-            <div className="gallery-caption">💚 With GFG VP Chandan Jha — Seminar organized at IMSEC</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/rift-team.jpg" alt="RIFT 2026 Hackathon Team — Semi-finalist Rank 6" />
-            <div className="gallery-caption">⚡ RIFT '26 — Semi-finalist Rank 6, Healthcare Track · PW Institute</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/hackwithup-college.jpg" alt="Team celebration at IMS Engineering College" />
-            <div className="gallery-caption">🎉 Celebration at IMSEC with Director & HODs</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/vatsal-certificate.jpg" alt="Receiving certificate for Chakravyuh 2K26" />
-            <div className="gallery-caption">📜 Certificate for Chakravyuh 2K26 from IMSEC Director</div>
-          </div>
-          <div className="gallery-item gi-wide">
-            <img src="/images/iit-delhi-incubator.jpg" alt="IIT Delhi eDC INCon 2026 Incubator Summit" />
-            <div className="gallery-caption">🚀 TrueChain at IIT Delhi eDC INCon 2026 — Incubator Summit</div>
+          <div className="exp-text">
+            <div className="exp-label">⚡ RIFT '26 · PW Institute of Innovation</div>
+            <h3 className="exp-title">Semi-Finalist · Rank 6 — Healthcare Track (8,000+ Teams)</h3>
+            <p>
+              Built <strong>VitalGeneAI</strong> — an AI-powered pharmacogenomic decision support
+              system using Google's Gemini API. It analyzes genomic VCF data to identify drug
+              response variants and generate CPIC-aligned medication recommendations.
+            </p>
+            <p>
+              What made this special: our team connected with another team from a different state,
+              and we collaborated — I handled the full-stack development while they took care of
+              the video presentation. That's what hackathons are really about.
+            </p>
           </div>
         </div>
       </section>
 
+      {/* ── IIT DELHI STARTUP ── */}
+      <section className="about-story reveal" style={{ animationDelay: '0.2s' }}>
+        <h2 className="section-title">🚀 Startup & Incubation</h2>
+        <div className="exp-block">
+          <div className="exp-images">
+            <img src="/images/iit-delhi-incubator.jpg" alt="IIT Delhi Incubator Summit" className="exp-img exp-img-main" />
+          </div>
+          <div className="exp-text">
+            <div className="exp-label">🏛️ IIT Delhi · eDC INCon 2026 Incubator Summit</div>
+            <h3 className="exp-title">TrueChain — Pitched at IIT Delhi Startup Incubation</h3>
+            <p>
+              After winning HackWithUP, TrueChain was selected for the <strong>IIT Delhi eDC
+              INCon 2026 Incubator Summit</strong>. I walked into one of India's most prestigious
+              tech institutions as a founder — presenting a blockchain B2B SaaS to investors
+              and industry leaders.
+            </p>
+            <p>
+              TrueChain enables end-to-end food supply chain traceability: farmer → manufacturer
+              → distributor → wholesaler → retailer — each step tracked and verified on-chain.
+              It's anti-counterfeiting by design.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <section className="about-timeline reveal" style={{ animationDelay: '0.2s' }}>
+      {/* ── LEADERSHIP ── */}
+      <section className="about-story reveal" style={{ animationDelay: '0.22s' }}>
+        <h2 className="section-title">🎯 Leadership & Roles</h2>
+        <div className="exp-block exp-block-reverse">
+          <div className="exp-images">
+            <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" className="exp-img exp-img-main" />
+          </div>
+          <div className="exp-text">
+            <div className="exp-label">🏅 IMSEC Sports Society · 2025–Present</div>
+            <h3 className="exp-title">Sports Main Coordinator</h3>
+            <p>
+              I head the entire sports department at IMS Engineering College — planning,
+              organizing and executing all inter-department and inter-college sporting events.
+              I also built <strong>Chakravyuh 2K26</strong>, the official AKTU multi-college
+              sports fest platform, handling participant registration, role-based admin panel,
+              scheduling, and live deployment for thousands of students.
+            </p>
+          </div>
+        </div>
+
+        <div className="exp-block" style={{ marginTop: '32px' }}>
+          <div className="exp-images">
+            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" className="exp-img exp-img-main" />
+          </div>
+          <div className="exp-text">
+            <div className="exp-label">💚 GeeksforGeeks Campus Mantri · Jan–Jun 2026</div>
+            <h3 className="exp-title">Organized GFG Seminar with VP Chandan Jha</h3>
+            <p>
+              As the official GFG Campus Representative, I organized coding sessions, DSA
+              workshops, and mentorship events across campus. The highlight was personally
+              inviting and hosting <strong>Chandan Jha (VP, GeeksforGeeks)</strong> for a
+              seminar at IMSEC — connecting 100+ students with industry leadership.
+            </p>
+          </div>
+        </div>
+
+        <div className="about-roles-extra">
+          <div className="role-mini-card">
+            <span className="role-mini-icon">🔵</span>
+            <div>
+              <strong>Google Gemini Student Ambassador</strong>
+              <span className="role-mini-sub">GID: 7505 · 2025–Present · 1,000+ students reached</span>
+              <p>Promotes Gemini AI tools — Canvas, Deep Research, Gemini Live, Code Assist — through workshops and AI hackathons at IMSEC.</p>
+            </div>
+          </div>
+          <div className="role-mini-card">
+            <span className="role-mini-icon">🤖</span>
+            <div>
+              <strong>Generative AI Intern — AKTU–IBM PBEL</strong>
+              <span className="role-mini-sub">Feb–May 2026 · IBM SkillsBuild Certified</span>
+              <p>Built a Student Performance Analysis ML model using Linear Regression. Earned IBM PBEL 2.3 – Gen AI certification.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PHOTO GALLERY ── */}
+      <section className="photo-gallery reveal" style={{ animationDelay: '0.25s' }}>
+        <h2 className="section-title">Moments That Matter</h2>
+        <div className="gallery-grid">
+          <div className="gallery-item gi-tall">
+            <img src="/images/hackwithup-stage.jpg" alt="HackWithUP Stage Win" />
+            <div className="gallery-caption">🏆 HackWithUP 2025 · ₹10k Prize · Chandigarh University</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" />
+            <div className="gallery-caption">💚 With GFG VP Chandan Jha — IMSEC Seminar</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/rift-team.jpg" alt="RIFT Team" />
+            <div className="gallery-caption">⚡ RIFT '26 · Rank 6 Healthcare Track</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/hackwithup-college.jpg" alt="College Celebration" />
+            <div className="gallery-caption">🎉 Celebration at IMSEC with Director & HODs</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" />
+            <div className="gallery-caption">📜 Chakravyuh 2K26 Certificate from IMSEC Director</div>
+          </div>
+          <div className="gallery-item gi-wide">
+            <img src="/images/iit-delhi-incubator.jpg" alt="IIT Delhi Incubator" />
+            <div className="gallery-caption">🚀 TrueChain at IIT Delhi eDC INCon 2026</div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Journey Timeline ── */}
+      <section className="about-timeline reveal" style={{ animationDelay: '0.28s' }}>
         <h2 className="section-title">Journey So Far</h2>
         <div className="timeline-list">
-          {timeline.map((t, i) => (
+          {[
+            { year: '2024', icon: '🎓', event: 'Joined IMS Engineering College, Ghaziabad (AKTU) — B.Tech CSE' },
+            { year: '2024', icon: '⚡', event: 'Started building real products — first React projects shipped' },
+            { year: '2025', icon: '⛓️', event: 'Founded TrueChain — Blockchain food provenance startup. Won ₹10k at HackWithUP (21k+ registrations)' },
+            { year: '2025', icon: '🚀', event: 'Pitched TrueChain at IIT Delhi eDC INCon 2026 Incubator Summit' },
+            { year: '2025', icon: '🏅', event: 'Became Sports Main Coordinator, IMSEC Sports Society' },
+            { year: '2025', icon: '🔵', event: 'Selected as Google Gemini Student Ambassador (GID: 7505)' },
+            { year: '2025', icon: '🌐', event: 'Represented IMSEC at IIT Delhi (eDC Blueprint 6.0) & IIM Shillong (DRISHTI-NE)' },
+            { year: '2025', icon: '🏟️', event: 'Built Chakravyuh 2K26 — official AKTU multi-college sports fest platform' },
+            { year: '2026', icon: '🤖', event: 'Generative AI Intern — AKTU-IBM PBEL · Earned IBM SkillsBuild certification' },
+            { year: '2026', icon: '💚', event: 'Campus Mantri at GeeksforGeeks IMSEC — hosted GFG VP Chandan Jha seminar' },
+            { year: '2026', icon: '🧬', event: "RIFT '26 — VitalGeneAI ranked 6th in Healthcare Track (8k+ registrations)" },
+          ].map((t, i) => (
             <div key={i} className="tl-item">
               <div className="tl-icon">{t.icon}</div>
               <div className="tl-content">
                 <span className="tl-year">{t.year}</span>
                 <p className="tl-event">{t.event}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Roles ── */}
-      <section className="about-roles-section reveal" style={{ animationDelay: '0.25s' }}>
-        <h2 className="section-title">Roles & Experience</h2>
-        <div className="roles-grid">
-          {roles.map((r, i) => (
-            <div key={i} className="role-card">
-              <span className="role-card-icon">{r.icon}</span>
-              <div>
-                <h4 className="role-card-title">{r.title}</h4>
-                <div className="role-card-org">{r.org}</div>
-                <div className="role-card-period">{r.period}</div>
-                <p className="role-card-desc">{r.desc}</p>
               </div>
             </div>
           ))}
