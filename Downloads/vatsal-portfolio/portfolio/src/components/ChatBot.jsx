@@ -78,15 +78,19 @@ async function callAI(history) {
 
 const QUICK_BUTTONS = ['Skills 💻', 'Projects 🚀', 'Hackathons 🏆', 'Freelance? 📲']
 
+const VATSAL_WA = import.meta.env.VITE_VATSAL_WA
+
 export default function ChatBot() {
-  const [open, setOpen]         = useState(false)
-  const [msgs, setMsgs]         = useState([])
-  const [input, setInput]       = useState('')
-  const [typing, setTyping]     = useState(false)
-  const [greeted, setGreeted]   = useState(false)
-  const [nudge, setNudge]       = useState(false)
-  const [msgCount, setMsgCount] = useState(0)
-  const [error, setError]       = useState('')
+  const [open, setOpen]           = useState(false)
+  const [msgs, setMsgs]           = useState([])
+  const [input, setInput]         = useState('')
+  const [typing, setTyping]       = useState(false)
+  const [greeted, setGreeted]     = useState(false)
+  const [nudge, setNudge]         = useState(false)
+  const [msgCount, setMsgCount]   = useState(0)
+  const [error, setError]         = useState('')
+  const [enquiry, setEnquiry]     = useState(false)  // show work-together card
+  const [enquiryDone, setEnqDone] = useState(false)  // answered
   const endRef = useRef(null)
 
   /* ── Nudge after 4s ── */
@@ -131,11 +135,16 @@ export default function ChatBot() {
     const newHistory = [...msgs, { from: 'user', text: userMsg }]
     setMsgs(newHistory)
     setTyping(true)
-    setMsgCount(c => c + 1)
+    const newCount = msgCount + 1
+    setMsgCount(newCount)
 
     try {
-      const reply = await callGemini(newHistory)
+      const reply = await callAI(newHistory)
       setMsgs(prev => [...prev, { from: 'bot', text: reply }])
+      // Show enquiry card after 3rd user message
+      if (newCount === 3 && !enquiryDone) {
+        setTimeout(() => setEnquiry(true), 800)
+      }
     } catch (e) {
       setError('Oops! AI hiccup. Try again 🙁')
       console.error(e)
@@ -144,11 +153,32 @@ export default function ChatBot() {
     }
   }
 
+  /* ── Enquiry handlers ── */
+  function handleEnquiryYes() {
+    setEnquiry(false)
+    setEnqDone(true)
+    window.open(
+      `https://wa.me/${VATSAL_WA}?text=${encodeURIComponent('Hi Vatsal! I came from your portfolio and would love to work together! 🚀')}`,
+      '_blank'
+    )
+    setMsgs(prev => [...prev,
+      { from: 'bot', text: 'Amazing! Connecting you to Vatsal on WhatsApp now 🎉 He usually replies within a few hours!' }
+    ])
+  }
+
+  function handleEnquiryNo() {
+    setEnquiry(false)
+    setEnqDone(true)
+    setMsgs(prev => [...prev,
+      { from: 'bot', text: 'No worries! 😊 Feel free to explore more — his projects and hackathon wins are pretty impressive! Ask me anything else.' }
+    ])
+  }
+
   function handleKey(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage() }
   }
 
-  const showWA = msgCount >= 2
+  const showWA = msgCount >= 4 && !enquiry
 
   return (
     <>
@@ -225,6 +255,17 @@ export default function ChatBot() {
           >
             <span>💬</span> Chat on WhatsApp
           </a>
+        )}
+
+        {/* Enquiry card — shown after 3 messages */}
+        {enquiry && (
+          <div className="cb-enquiry">
+            <p className="cb-enquiry-q">🤝 Would you like to work with Vatsal?</p>
+            <div className="cb-enquiry-btns">
+              <button className="cb-eq-yes" onClick={handleEnquiryYes}>✅ Yes, let's connect!</button>
+              <button className="cb-eq-no"  onClick={handleEnquiryNo}>Not now</button>
+            </div>
+          </div>
         )}
 
         {/* Input */}
