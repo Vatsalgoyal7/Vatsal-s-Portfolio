@@ -18,21 +18,25 @@ export default function Projects() {
           <article key={p.name} className="project-card reveal" style={{ animationDelay: `${i * 0.1}s` }}>
             <div className="project-card-top">
               <div className="project-icon" style={{ background: p.color + '22', border: `1px solid ${p.color}44` }}>
-                <span style={{ color: p.color }}>{'<>'}</span>
+                <span style={{ fontSize: '1.4rem' }}>{p.icon || '<>'}</span>
               </div>
               <StatusBadge status={p.status} />
             </div>
 
             <h2 className="project-name">
-              {p.url
-                ? <a href={p.url} target="_blank" rel="noopener">{p.name} ↗</a>
+              {p.link && p.link !== '#'
+                ? <a href={p.link} target="_blank" rel="noopener noreferrer">{p.name} ↗</a>
                 : p.name}
             </h2>
 
-            <p className="project-desc">{p.text}</p>
+            <p className="project-tagline" style={{ color: p.color, fontSize: '0.8rem', fontWeight: 700, marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              {p.tagline}
+            </p>
+
+            <p className="project-desc">{p.desc}</p>
 
             <div className="project-stack">
-              {p.stack.map(s => (
+              {(p.tech || []).map(s => (
                 <span key={s} className="stack-chip">{s}</span>
               ))}
             </div>
@@ -47,9 +51,9 @@ export default function Projects() {
 
 function StatusBadge({ status }) {
   const map = {
-    'Live':        { cls: 'badge-live',     label: '● Live' },
-    'In Progress': { cls: 'badge-wip',      label: '◐ In Progress' },
-    'Done':        { cls: 'badge-done',     label: '✓ Done' },
+    'Live':        { cls: 'badge-live', label: '● Live' },
+    'In Progress': { cls: 'badge-wip',  label: '◐ In Progress' },
+    'Done':        { cls: 'badge-done', label: '✓ Done' },
   }
   const { cls, label } = map[status] || map['Done']
   return <span className={`status-badge ${cls}`}>{label}</span>

@@ -10,17 +10,29 @@ export default function Hackathons() {
       <div className="page-header reveal">
         <Link to="/" className="back-link">← Back</Link>
         <span className="page-eyebrow">Competition Journey</span>
-        <h1 className="page-title">Hackathons <em>and Wins</em></h1>
+        <h1 className="page-title">Hackathons <em>& Wins</em></h1>
       </div>
 
-      <div className="timeline-grid">
+      <div className="hackathons-list">
         {hackathons.map((h, i) => (
-          <div key={h.when} className="tc reveal" style={{ animationDelay: `${i * 0.08}s` }}>
-            <div className="tc-when">{h.when}</div>
-            <div className="tc-what">{h.what}</div>
-            <div className="tc-note">{h.note}</div>
-            <div className={`tc-badge ${h.result.includes('Semi') ? 'finalist' : h.result.includes('🏆') ? 'winner' : ''}`}>
-              {h.result}
+          <div key={i} className="hack-card reveal" style={{ animationDelay: `${i * 0.08}s` }}>
+            <div className="hack-left">
+              <div className="hack-year">{h.year}</div>
+              <div className="hack-org">{h.org}</div>
+            </div>
+            <div className="hack-body">
+              <h2 className="hack-name">{h.name}</h2>
+              <div className={`hack-place ${
+                (h.place || '').includes('🏆') || (h.place || '').includes('3rd') ? 'place-winner' :
+                (h.place || '').includes('Semi') || (h.place || '').includes('⚡') ? 'place-finalist' :
+                (h.place || '').includes('🚀') ? 'place-special' : 'place-participant'
+              }`}>{h.place}</div>
+              <p className="hack-desc">{h.desc}</p>
+              <div className="hack-tags">
+                {(h.tags || []).map(t => (
+                  <span key={t} className="hack-tag">{t}</span>
+                ))}
+              </div>
             </div>
           </div>
         ))}

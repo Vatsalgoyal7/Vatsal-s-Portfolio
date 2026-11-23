@@ -498,8 +498,64 @@ img { display: block; max-width: 100%; }
 .badge-wip    { background: rgba(251,146,60,0.1);    border: 1px solid rgba(251,146,60,0.35);  color: #fb923c; }
 .badge-done   { background: rgba(255,255,255,0.05); border: 1px solid var(--border);           color: var(--muted); }
 
-/* ─── hackathons ─── */
-.timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+/* ─── hackathons page ─── */
+.hackathons-list { display: flex; flex-direction: column; gap: 16px; }
+.hack-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 24px 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.hack-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(to bottom, var(--acc1), var(--acc2));
+  opacity: 0; transition: opacity 0.3s;
+}
+.hack-card:hover { transform: translateY(-3px); border-color: rgba(124,58,237,0.35); box-shadow: 0 12px 36px rgba(0,0,0,0.3); }
+.hack-card:hover::before { opacity: 1; }
+
+.hack-left { text-align: center; padding-top: 4px; }
+.hack-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem; font-weight: 700;
+  color: var(--acc1); letter-spacing: 1px; margin-bottom: 6px;
+}
+.hack-org { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+.hack-name { font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; line-height: 1.4; }
+.hack-place {
+  display: inline-flex; align-items: center;
+  padding: 4px 12px; border-radius: 99px;
+  font-size: 0.75rem; font-weight: 700;
+  margin-bottom: 10px;
+}
+.place-winner   { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.35); color: #fbbf24; }
+.place-finalist { background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.35); color: #a78bfa; }
+.place-special  { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); color: #34d399; }
+.place-participant { background: rgba(107,114,128,0.1); border: 1px solid rgba(107,114,128,0.3); color: #9ca3af; }
+
+.hack-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+.hack-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.hack-tag {
+  padding: 3px 10px; border-radius: 99px;
+  font-size: 0.7rem; font-weight: 600;
+  background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.25); color: #c4b5fd;
+}
+
+@media (max-width: 600px) {
+  .hack-card { grid-template-columns: 1fr; }
+  .hack-left { text-align: left; display: flex; gap: 12px; align-items: center; }
+}
+
+
 .tc {
   background: var(--surface);
   border: 1px solid var(--border);
