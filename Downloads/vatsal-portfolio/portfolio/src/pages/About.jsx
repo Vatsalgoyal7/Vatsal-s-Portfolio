@@ -83,6 +83,14 @@ export default function About() {
             <div className="gallery-caption">🏆 HackWithUP 2025 — 3rd Place, ₹10k Prize · Chandigarh University</div>
           </div>
           <div className="gallery-item gi-normal">
+            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha at IMSEC Seminar" />
+            <div className="gallery-caption">💚 With GFG VP Chandan Jha — Seminar organized at IMSEC</div>
+          </div>
+          <div className="gallery-item gi-normal">
+            <img src="/images/rift-team.jpg" alt="RIFT 2026 Hackathon Team — Semi-finalist Rank 6" />
+            <div className="gallery-caption">⚡ RIFT '26 — Semi-finalist Rank 6, Healthcare Track · PW Institute</div>
+          </div>
+          <div className="gallery-item gi-normal">
             <img src="/images/hackwithup-college.jpg" alt="Team celebration at IMS Engineering College" />
             <div className="gallery-caption">🎉 Celebration at IMSEC with Director & HODs</div>
           </div>
