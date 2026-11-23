@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from 'react'
 /* ── API Keys from .env ── */
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
 const VATSAL_WA  = import.meta.env.VITE_VATSAL_WA
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`
 
 /* ── System prompt — full Vatsal context ── */
 const SYSTEM = `You are Vatsal Goyal's personal AI portfolio assistant. Be friendly, short and enthusiastic.
@@ -39,20 +38,24 @@ Rules:
 - Use emojis occasionally
 - NEVER mention marks, CGPA or grades
 - After 2-3 exchanges, suggest WhatsApp connection
-- If unsure about something, say "Best to ask Vatsal directly on WhatsApp!"
+- If unsure, say "Best to ask Vatsal directly on WhatsApp!"
 - Don't make up info not listed above`
 
 /* ── Call Gemini API ── */
 async function callGemini(history) {
-  // Build contents array — convert our history to Gemini format
-  const contents = history.map(m => ({
+  // Inject system prompt as first turn (works with all key formats)
+  const systemTurn = [
+    { role: 'user',  parts: [{ text: `[SYSTEM INSTRUCTIONS]\n${SYSTEM}\n[/SYSTEM INSTRUCTIONS]\n\nAcknowledge you understand.` }] },
+    { role: 'model', parts: [{ text: "Got it! I'm Vatsal's AI assistant and I know everything about him. Ready to help! 🚀" }] },
+  ]
+
+  const userContents = history.map(m => ({
     role: m.from === 'user' ? 'user' : 'model',
     parts: [{ text: m.text }]
   }))
 
   const body = {
-    system_instruction: { parts: [{ text: SYSTEM }] },
-    contents,
+    contents: [...systemTurn, ...userContents],
     generationConfig: {
       temperature: 0.85,
       maxOutputTokens: 300,
@@ -60,19 +63,27 @@ async function callGemini(history) {
     }
   }
 
-  const res = await fetch(GEMINI_URL, {
+  // Try with key as query param first (standard), fallback to Bearer header
+  const urlWithKey = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`
+
+  const res = await fetch(urlWithKey, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GEMINI_KEY}`,
+    },
     body: JSON.stringify(body)
   })
 
   if (!res.ok) {
-    const err = await res.json()
-    throw new Error(err?.error?.message || 'Gemini error')
+    const err = await res.json().catch(() => ({}))
+    console.error('Gemini error:', err)
+    throw new Error(err?.error?.message || `HTTP ${res.status}`)
   }
 
   const data = await res.json()
   return data.candidates?.[0]?.content?.parts?.[0]?.text || "Hmm, I had a hiccup. Try again! 😅"
+
 }
 
 const QUICK_BUTTONS = ['Skills 💻', 'Projects 🚀', 'Hackathons 🏆', 'Freelance? 📲']
