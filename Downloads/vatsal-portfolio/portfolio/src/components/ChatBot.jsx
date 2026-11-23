@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
 const VATSAL_WA  = import.meta.env.VITE_VATSAL_WA
 
-/* ── System prompt — full Vatsal context ── */
+/* ── System prompt ── */
 const SYSTEM = `You are Vatsal Goyal's personal AI portfolio assistant. Be friendly, short and enthusiastic.
 
 About Vatsal:
@@ -21,69 +21,62 @@ Projects:
 3. Student Performance Predictor — ML model, Python+Scikit-learn (IBM Internship)
 
 Hackathons:
-- 🏆 Hack with UP — 3rd Place + ₹10,000 at Chandigarh University (Nov 2025)
-- ⚡ RIFT '26 — Semi-finalist, PW Institute of Innovation (Feb 2026)
-- 🤖 YUVAAN AI/ML — IIT Hyderabad (2025)
-- 🌐 DRISHTI-NE — IIM Shillong (2025)
+- Hack with UP — 3rd Place + Rs.10,000 at Chandigarh University (Nov 2025)
+- RIFT 26 — Semi-finalist, PW Institute of Innovation (Feb 2026)
+- YUVAAN AI/ML — IIT Hyderabad (2025)
+- DRISHTI-NE — IIM Shillong (2025)
 
 Roles: Sports Main Coordinator IMSEC, Club Head AAVEG, Campus Mantri GeeksforGeeks, IBM AI Intern
 
-Freelance availability: YES. Builds for colleges, events, businesses.
-Pricing: Landing page ₹3k-8k | Event site ₹8k-20k | Web app ₹15k-40k+
+Freelance: YES. Colleges, events, businesses.
+Pricing: Landing page Rs.3k-8k | Event site Rs.8k-20k | Web app Rs.15k-40k+
 Delivery: 1-3 weeks
 
 Rules:
-- Keep replies SHORT (3-5 lines max unless user asks for detail)
-- Be enthusiastic, casual, friendly — like a cool assistant
-- Use emojis occasionally
+- Keep replies SHORT (3-5 lines max)
+- Be enthusiastic, casual, friendly with emojis
 - NEVER mention marks, CGPA or grades
 - After 2-3 exchanges, suggest WhatsApp connection
 - If unsure, say "Best to ask Vatsal directly on WhatsApp!"
 - Don't make up info not listed above`
 
 /* ── Call Gemini API ── */
-async function callGemini(history) {
-  // Inject system prompt as first turn (works with all key formats)
+async function callAI(history) {
   const systemTurn = [
-    { role: 'user',  parts: [{ text: `[SYSTEM INSTRUCTIONS]\n${SYSTEM}\n[/SYSTEM INSTRUCTIONS]\n\nAcknowledge you understand.` }] },
-    { role: 'model', parts: [{ text: "Got it! I'm Vatsal's AI assistant and I know everything about him. Ready to help! 🚀" }] },
+    { role: 'user',  parts: [{ text: `System context (follow these instructions always):\n${SYSTEM}` }] },
+    { role: 'model', parts: [{ text: "Understood! I'm Vatsal's AI assistant, ready to help visitors learn about him. 🚀" }] },
   ]
 
-  const userContents = history.map(m => ({
-    role: m.from === 'user' ? 'user' : 'model',
-    parts: [{ text: m.text }]
-  }))
+  const contents = [
+    ...systemTurn,
+    ...history.map(m => ({
+      role: m.from === 'user' ? 'user' : 'model',
+      parts: [{ text: m.text }]
+    }))
+  ]
 
-  const body = {
-    contents: [...systemTurn, ...userContents],
-    generationConfig: {
-      temperature: 0.85,
-      maxOutputTokens: 300,
-      topP: 0.95,
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents,
+        generationConfig: { temperature: 0.8, maxOutputTokens: 300 }
+      })
     }
-  }
-
-  // Try with key as query param first (standard), fallback to Bearer header
-  const urlWithKey = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`
-
-  const res = await fetch(urlWithKey, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body)
-  })
+  )
 
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
-    console.error('Gemini error:', err)
+    console.error('Gemini error:', JSON.stringify(err))
     throw new Error(err?.error?.message || `HTTP ${res.status}`)
   }
 
   const data = await res.json()
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || "Hmm, I had a hiccup. Try again! 😅"
-
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "Let me try again! 😅"
 }
+
 
 const QUICK_BUTTONS = ['Skills 💻', 'Projects 🚀', 'Hackathons 🏆', 'Freelance? 📲']
 
