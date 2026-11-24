@@ -118,8 +118,8 @@ export default function About() {
             <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" className="exp-img exp-img-main" />
           </div>
           <div className="exp-text">
-            <div className="exp-label">🏅 IMSEC Sports Society · 2025–Present</div>
-            <h3 className="exp-title">Sports Main Coordinator</h3>
+            <div className="exp-label">🏅 IMSEC Sports Society · 2026–Present</div>
+            <h3 className="exp-title">Sports Main Coordinator & Club Head</h3>
             <p>
               I head the entire sports department at IMS Engineering College — planning,
               organizing and executing all inter-department and inter-college sporting events.
@@ -150,9 +150,9 @@ export default function About() {
           <div className="role-mini-card">
             <span className="role-mini-icon">🔵</span>
             <div>
-              <strong>Google Gemini Student Ambassador</strong>
-              <span className="role-mini-sub">GID: 7505 · 2025–Present · 1,000+ students reached</span>
-              <p>Promotes Gemini AI tools — Canvas, Deep Research, Gemini Live, Code Assist — through workshops and AI hackathons at IMSEC.</p>
+              <strong>Google Student Ambassador</strong>
+              <span className="role-mini-sub">GID: 7505 · 2026–Present · 1,000+ students reached</span>
+              <p>Promotes Google AI tools — Gemini, Canvas, Deep Research, Gemini Live, Code Assist — through workshops and AI hackathons at IMSEC.</p>
             </div>
           </div>
           <div className="role-mini-card">
@@ -166,34 +166,14 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── PHOTO GALLERY ── */}
-      <section className="photo-gallery reveal" style={{ animationDelay: '0.25s' }}>
-        <h2 className="section-title">Moments That Matter</h2>
-        <div className="gallery-grid">
-          <div className="gallery-item gi-tall">
-            <img src="/images/hackwithup-stage.jpg" alt="HackWithUP Stage Win" />
-            <div className="gallery-caption">🏆 HackWithUP 2025 · ₹10k Prize · Chandigarh University</div>
+      {/* Gallery link card */}
+      <section className="reveal" style={{ animationDelay: '0.25s', marginBottom: '48px' }}>
+        <div className="gallery-link-banner">
+          <div>
+            <h2 style={{ margin: 0, fontSize: '1.3rem', fontWeight: 800 }}>📸 Photos, Moments & Certificates</h2>
+            <p style={{ margin: '6px 0 0', color: 'var(--muted)', fontSize: '0.88rem' }}>See all hackathon photos, certificates (IBM, GFG, HackWithUP) and event moments in one place.</p>
           </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" />
-            <div className="gallery-caption">💚 With GFG VP Chandan Jha — IMSEC Seminar</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/rift-team.jpg" alt="RIFT Team" />
-            <div className="gallery-caption">⚡ RIFT '26 · Rank 6 Healthcare Track</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/hackwithup-college.jpg" alt="College Celebration" />
-            <div className="gallery-caption">🎉 Celebration at IMSEC with Director & HODs</div>
-          </div>
-          <div className="gallery-item gi-normal">
-            <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" />
-            <div className="gallery-caption">📜 Chakravyuh 2K26 Certificate from IMSEC Director</div>
-          </div>
-          <div className="gallery-item gi-wide">
-            <img src="/images/iit-delhi-incubator.jpg" alt="IIT Delhi Incubator" />
-            <div className="gallery-caption">🚀 TrueChain at IIT Delhi eDC INCon 2026</div>
-          </div>
+          <a href="/gallery" className="btn-primary" style={{ whiteSpace: 'nowrap', flexShrink: 0 }}>View Gallery →</a>
         </div>
       </section>
 
@@ -204,10 +184,10 @@ export default function About() {
           {[
             { year: '2024', icon: '🎓', event: 'Joined IMS Engineering College, Ghaziabad (AKTU) — B.Tech CSE' },
             { year: '2024', icon: '⚡', event: 'Started building real products — first React projects shipped' },
-            { year: '2025', icon: '⛓️', event: 'Founded TrueChain — Blockchain food provenance startup. Won ₹10k at HackWithUP (21k+ registrations)' },
-            { year: '2025', icon: '🚀', event: 'Pitched TrueChain at IIT Delhi eDC INCon 2026 Incubator Summit' },
-            { year: '2025', icon: '🏅', event: 'Became Sports Main Coordinator, IMSEC Sports Society' },
-            { year: '2025', icon: '🔵', event: 'Selected as Google Gemini Student Ambassador (GID: 7505)' },
+            { year: '2025', icon: '⛓️', event: 'Founded TrueChain — Blockchain food provenance startup. Won ₹10k at HackWithUP (21k+ registrations, Nov 2025)' },
+            { year: '2026', icon: '🚀', event: 'Pitched TrueChain at IIT Delhi eDC INCon 2026 Incubator Summit' },
+            { year: '2026', icon: '🏅', event: 'Sports Main Coordinator & Club Head — IMSEC Sports Society (2026–Present)' },
+            { year: '2026', icon: '🔵', event: 'Selected as Google Student Ambassador · GID: 7505 (2026–Present)' },
             { year: '2025', icon: '🌐', event: 'Represented IMSEC at IIT Delhi (eDC Blueprint 6.0) & IIM Shillong (DRISHTI-NE)' },
             { year: '2025', icon: '🏟️', event: 'Built Chakravyuh 2K26 — official AKTU multi-college sports fest platform' },
             { year: '2026', icon: '🤖', event: 'Generative AI Intern — AKTU-IBM PBEL · Earned IBM SkillsBuild certification' },

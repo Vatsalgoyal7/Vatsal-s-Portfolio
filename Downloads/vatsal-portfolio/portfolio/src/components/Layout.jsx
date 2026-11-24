@@ -53,6 +53,7 @@ export default function Layout({ children }) {
     { to: '/projects',    label: 'Projects' },
     { to: '/hackathons',  label: 'Hackathons' },
     { to: '/about',       label: 'About' },
+    { to: '/gallery',     label: 'Gallery' },
     { to: '/contact',     label: 'Contact' },
   ]
 

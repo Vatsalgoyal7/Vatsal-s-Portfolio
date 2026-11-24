@@ -153,23 +153,23 @@ export const hackathons = [
 /* ── Roles / Leadership ── */
 export const roles = [
   {
-    title: 'Sports Main Coordinator',
-    org:   'IMS Engineering College',
-    period:'2025 – Present',
+    title: 'Sports Main Coordinator & Club Head',
+    org:   'IMSEC Sports Society',
+    period:'2026 – Present',
     desc:  `Heads the college's official Sports department — plans and organizes all inter-department and inter-college sporting events. Selects and manages sub-coordinators; oversees event ownership end-to-end.`,
     icon:  '🏅',
   },
   {
-    title: 'Google Gemini Student Ambassador',
+    title: 'Google Student Ambassador',
     org:   'Google · GID: 7505',
-    period:'2025 – Present',
-    desc:  `Selected as one of Google's official Gemini Ambassadors. Promotes Gems, Canvas, Deep Research, Gemini Live, and Code Assist to a 1,000+ student community. Organizes AI workshops and hackathons at IMSEC.`,
+    period:'2026 – Present',
+    desc:  `Selected as an official Google Student Ambassador. Promotes Google AI tools — Gemini, Canvas, Deep Research, Gemini Live, and Code Assist — to 1,000+ students. Organizes AI workshops and hackathons at IMSEC.`,
     icon:  '🔵',
   },
   {
-    title: 'Campus Mantri (Official Representative)',
+    title: 'Campus Mantri — Official GFG Representative',
     org:   'GeeksforGeeks, IMSEC',
-    period:'Jan 2026 – June 2026',
+    period:'Jan 2026 – Jun 2026',
     desc:  `Hosted GFG mentor sessions promoting coding culture and DSA fundamentals across campus.`,
     icon:  '💚',
   },

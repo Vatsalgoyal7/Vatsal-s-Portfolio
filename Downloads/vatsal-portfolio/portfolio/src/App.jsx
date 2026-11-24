@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Hackathons from './pages/Hackathons'
 import About from './pages/About'
+import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
 import Layout from './components/Layout'
 
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/hackathons" element={<Hackathons />} />
           <Route path="/about" element={<About />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </Layout>
