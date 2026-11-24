@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { links } from '../data'
 import ChatBot from './ChatBot'
-import ScreenPet from './ScreenPet'
 
 /* ── Aurora + cursor glow ── */
 function Background() {
@@ -80,9 +79,20 @@ export default function Layout({ children }) {
           ))}
         </nav>
 
-        <a className="nav-hire" href={`mailto:${links.email}?subject=Project%20enquiry`}>
-          Get in touch ✦
-        </a>
+        <div className="header-actions">
+          <a
+            href={links.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-resume"
+            title="Open Vatsal's Resume in Google Drive"
+          >
+            📄 Resume
+          </a>
+          <a className="nav-hire" href={`mailto:${links.email}?subject=Project%20enquiry`}>
+            Get in touch ✦
+          </a>
+        </div>
       </header>
 
       <main className="page-main">
@@ -95,11 +105,11 @@ export default function Layout({ children }) {
           <a href={links.github}    target="_blank" rel="noopener">GitHub</a>
           <a href={links.linkedin}  target="_blank" rel="noopener">LinkedIn</a>
           <a href={links.instagram} target="_blank" rel="noopener">Instagram</a>
+          <a href={links.resume}    target="_blank" rel="noopener">Resume</a>
         </div>
       </footer>
 
       <ChatBot />
-      <ScreenPet />
     </>
   )
 }

@@ -185,6 +185,29 @@ img { display: block; max-width: 100%; }
 .nav-link:hover { color: var(--ink); background: var(--surface); }
 .nav-link.active { color: var(--ink); background: var(--surface2); }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-resume {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.nav-resume:hover {
+  background: rgba(124, 58, 237, 0.2);
+  border-color: rgba(124, 58, 237, 0.5);
+  transform: translateY(-1px);
+  color: #c4b5fd;
+}
+
 .nav-hire {
   font-size: 0.85rem;
   font-weight: 600;

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
-import { skills } from '../data'
+import { skills, links } from '../data'
 
 export default function About() {
   useReveal()
@@ -19,7 +19,7 @@ export default function About() {
           <div className="story-text">
             <p className="story-lead">
               Hey! I'm <strong>Vatsal Goyal</strong> — a full-stack developer, startup founder, and
-              Google Gemini Ambassador from Ghaziabad. I'm currently in my 3rd year of B.Tech CSE
+              Google Student Ambassador from Ghaziabad. I'm currently in my 3rd year of B.Tech CSE
               at <strong>IMS Engineering College (AKTU)</strong>.
             </p>
             <p>
@@ -33,6 +33,17 @@ export default function About() {
               a real problem — whether it's a college sports fest platform handling thousands of
               registrations, an AI genomics tool, or a food traceability blockchain.
             </p>
+            <div style={{ marginTop: '22px' }}>
+              <a
+                href={links.resume}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+              >
+                📄 View Official Resume (PDF) ↗
+              </a>
+            </div>
           </div>
           <img src="/images/vatsal-casual.jpg" alt="Vatsal Goyal" className="about-photo story-photo" />
         </div>
@@ -228,14 +239,14 @@ export default function About() {
         <p className="hobbies-sub">When I'm not building things, here's what you'll find me doing:</p>
         <div className="hobbies-grid">
           {[
-            { icon: '🏸', label: 'Badminton',   desc: 'Court hustle, smashes & quick reflexes' },
-            { icon: '🏀', label: 'Basketball',  desc: 'Team sport, strategy & fast breaks' },
-            { icon: '♟️', label: 'Chess',        desc: 'Thinking 10 moves ahead, always' },
-            { icon: '🏏', label: 'Cricket',      desc: 'Weekend matches & big sixes' },
-            { icon: '🏊', label: 'Swimming',     desc: 'Clear mind, clean strokes' },
-            { icon: '✈️', label: 'Travel',       desc: 'Exploring new cities & cultures' },
-            { icon: '🍜', label: 'Food Hunting', desc: 'Street food to fine dining — all in' },
-            { icon: '💡', label: 'Building',     desc: 'Side projects, wild ideas, late nights' },
+            { icon: '🏸', label: 'Badminton',           desc: 'Casual matches & weekend games' },
+            { icon: '🏀', label: 'Basketball',          desc: 'Court games & team play' },
+            { icon: '♟️', label: 'Chess',               desc: 'Casual games & tactical puzzles' },
+            { icon: '🏏', label: 'Cricket',             desc: 'Matches with friends' },
+            { icon: '🏊', label: 'Swimming',            desc: 'Staying active & refreshing' },
+            { icon: '✈️', label: 'Travel',              desc: 'Exploring new places & trips' },
+            { icon: '🍜', label: 'Food Exploration',    desc: 'Trying different local cuisines & street food' },
+            { icon: '💡', label: 'Ideating & Building', desc: 'Thinking up new ideas & developing products' },
           ].map(h => (
             <div key={h.label} className="hobby-card">
               <span className="hobby-icon">{h.icon}</span>

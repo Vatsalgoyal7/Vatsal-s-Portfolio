@@ -39,13 +39,12 @@ function useTypewriter(el) {
 const tiles = [
   { to: '/projects',   label: 'Projects',   desc: "What I've built",        icon: '🚀', color: '#7c3aed' },
   { to: '/hackathons', label: 'Hackathons',  desc: 'Competitions & wins',    icon: '🏆', color: '#f59e0b' },
+  { to: '/gallery',    label: 'Gallery',     desc: 'Photos & Certificates',  icon: '📸', color: '#ec4899' },
   { to: '/about',      label: 'About',       desc: 'Who I am',               icon: '👤', color: '#06b6d4' },
-  { to: '/contact',    label: 'Contact',     desc: "Let's work together",    icon: '✉️',  color: '#10b981' },
+  { href: links.resume,    label: 'Resume',    desc: 'Official PDF (Drive)',  icon: '📄', color: '#38bdf8', external: true },
   { href: links.github,    label: 'GitHub',    desc: 'My code repos',         icon: '💻', color: '#a78bfa', external: true },
   { href: links.linkedin,  label: 'LinkedIn',  desc: 'Connect professionally',icon: '🔗', color: '#0ea5e9', external: true },
-  { href: links.instagram, label: 'Instagram', desc: 'Follow me',             icon: '📸', color: '#ec4899', external: true },
-  { href: `mailto:${links.email}?subject=Project%20enquiry`,
-                           label: 'Mail Me',   desc: 'Drop a message',        icon: '📬', color: '#f59e0b', external: true },
+  { to: '/contact',    label: 'Contact',     desc: "Let's work together",    icon: '✉️',  color: '#10b981' },
 ]
 
 function Tile({ tile, style }) {
@@ -97,7 +96,7 @@ export default function Home() {
             <span className="id-pill cyan">💻 Developer</span>
             <span className="id-pill pink">🎨 Designer</span>
             <span className="id-pill amber">💼 Freelancer</span>
-            <span className="id-pill blue">🔵 Gemini Ambassador</span>
+            <span className="id-pill blue">🔵 Google Student Ambassador</span>
             <span className="id-pill green">⛓️ Startup Founder</span>
           </div>
 
