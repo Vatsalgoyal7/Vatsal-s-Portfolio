@@ -132,7 +132,7 @@ export default function About() {
 
         <div className="exp-block" style={{ marginTop: '32px' }}>
           <div className="exp-images">
-            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" className="exp-img exp-img-main" />
+            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" className="exp-img exp-img-main" style={{ objectFit: 'contain', background: 'rgba(0,0,0,0.4)' }} />
           </div>
           <div className="exp-text">
             <div className="exp-label">💚 GeeksforGeeks Campus Mantri · Jan–Jun 2026</div>
