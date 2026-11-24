@@ -25,7 +25,7 @@ Projects:
 3. VitalGeneAI — Pharmacogenomic AI system, Gemini API, RIFT '26 Hackathon Rank 6
 4. Digital Legacy Vault — digital inheritance system, Next.js+MongoDB (In Progress)
 
-Hackathons (8+):
+Hackathons:
 - HackWithUttarPradesh 2025 — 3rd Place + Rs.10,000 (21,000+ registrations, Chandigarh University)
 - RIFT '26 — Semi-finalist Rank 6, Healthcare Track (8,000+ registrations, PW Institute)
 - Wizards 2.0 — 3rd Place, IMSEC x HackerRank
@@ -147,10 +147,12 @@ export default function ChatBot() {
     })
   }, [open, greeted])
 
-  /* ── Scroll to bottom ── */
+  /* ── Scroll ONLY INSIDE CHAT, and ONLY WHEN OPEN ── */
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [msgs, typing])
+    if (open && endRef.current) {
+      endRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [msgs, typing, open])
 
   /* ── Send message ── */
   async function sendMessage(text) {
@@ -187,7 +189,6 @@ export default function ChatBot() {
         throw new Error('Empty reply')
       }
     } catch {
-      // Clean, helpful fallback (never shows an ugly error)
       setMsgs(prev => [...prev, {
         from: 'bot',
         text: `Vatsal is a 3rd year B.Tech CSE student, full-stack developer, and founder of **TrueChain**! 🚀\n\nYou can explore his **Projects**, **Hackathons**, or [**View His Resume**](${RESUME_URL}).\n\nWant to discuss a project or collaboration? Tap **Chat on WhatsApp** below to talk with him directly!`
@@ -250,28 +251,29 @@ export default function ChatBot() {
         </aside>
       )}
 
-      {/* Launcher Button */}
+      {/* Floating launcher button */}
       <button
-        className={`cb-launcher ${open ? 'active' : ''}`}
+        className={`chatbot-fab ${open ? 'fab-open' : ''}`}
         onClick={() => { setOpen(prev => !prev); setNudge(false) }}
         aria-label={open ? 'Close chat' : 'Open AI chat assistant'}
         title="Chat with Vatsal's AI Assistant"
       >
-        <span className="cb-icon-chat">💬</span>
-        <span className="cb-icon-close">✕</span>
-        <span className="cb-online-dot" />
+        {open ? '✕' : '💬'}
+        {!open && <span className="fab-ping" />}
       </button>
 
-      {/* Chat Window */}
-      <div className={`cb-window ${open ? 'open' : ''}`} role="dialog" aria-label="AI Portfolio Assistant">
+      {/* Floating Chat Panel (Only visible when open or animated) */}
+      <div className={`chatbot-panel ${open ? 'panel-open' : ''}`} role="dialog" aria-label="AI Portfolio Assistant">
         {/* Header */}
         <div className="cb-header">
-          <div className="cb-header-avatar">🤖</div>
+          <div className="cb-avatar">🤖</div>
           <div className="cb-header-info">
-            <span className="cb-header-title">Vatsal's AI Assistant</span>
-            <span className="cb-header-sub">● Online · Instant Portfolio Answers</span>
+            <div className="cb-title">Vatsal's AI Assistant</div>
+            <div className="cb-subtitle">
+              <span className="cb-dot" /> Online · Instant Answers
+            </div>
           </div>
-          <button className="cb-close-btn" onClick={() => setOpen(false)} aria-label="Close chat">✕</button>
+          <button className="cb-close" onClick={() => setOpen(false)} aria-label="Close chat">✕</button>
         </div>
 
         {/* Messages */}

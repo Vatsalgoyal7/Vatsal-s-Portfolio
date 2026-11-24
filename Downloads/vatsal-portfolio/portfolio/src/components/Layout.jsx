@@ -47,6 +47,10 @@ function Background() {
 export default function Layout({ children }) {
   const { pathname } = useLocation()
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
+
   const navItems = [
     { to: '/',            label: 'Home' },
     { to: '/projects',    label: 'Projects' },
