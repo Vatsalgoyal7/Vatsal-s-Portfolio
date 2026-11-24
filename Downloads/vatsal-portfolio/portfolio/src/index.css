@@ -1808,9 +1808,9 @@ img { display: block; max-width: 100%; }
   50%     { opacity:1;   r:6; }
 }
 @keyframes bubble-pop {
-  0%   { opacity:0; transform: scaleX(var(--bdir,1)) scale(0.5) translateY(4px); }
-  60%  { transform: scaleX(var(--bdir,1)) scale(1.08) translateY(0); }
-  100% { opacity:1; transform: scaleX(var(--bdir,1)) scale(1) translateY(0); }
+  0%   { opacity: 0; transform: translateX(-50%) scale(0.6) translateY(6px); }
+  60%  { transform: translateX(-50%) scale(1.05) translateY(-2px); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1) translateY(0); }
 }
 
 .screen-pet {

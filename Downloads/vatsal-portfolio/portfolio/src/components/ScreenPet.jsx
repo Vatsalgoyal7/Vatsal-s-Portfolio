@@ -1,16 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
 
 const MESSAGES = [
-  "Hire Vatsal! 🚀",
-  "He won ₹10k! 🏆",
-  "Blockchain founder! ⛓️",
-  "Ask me anything! 💬",
-  "Available to freelance! 💼",
-  "Gemini Ambassador! 🔵",
-  "IIT Delhi incubated! 🎓",
-  "React dev here! ⚡",
-  "8+ hackathons! 🏅",
-  "Check projects! 🛠️",
+  "Hi! I'm Vatsal's pet bot 🤖",
+  "Winner @ HackWithUP 🏆",
+  "TrueChain Founder ⛓️",
+  "Google Student Ambassador 🔵",
+  "Check out his Projects! 🚀",
+  "Available for Freelance 💼",
+  "Click me! ✨",
 ]
 
 export default function ScreenPet() {
