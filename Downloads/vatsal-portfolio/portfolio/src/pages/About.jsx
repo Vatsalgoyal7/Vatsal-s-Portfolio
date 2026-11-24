@@ -114,8 +114,8 @@ export default function About() {
       <section className="about-story reveal" style={{ animationDelay: '0.22s' }}>
         <h2 className="section-title">🎯 Leadership & Roles</h2>
         <div className="exp-block exp-block-reverse">
-          <div className="exp-images">
-            <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" className="exp-img exp-img-main" />
+          <div className="exp-images exp-images-portrait">
+            <img src="/images/vatsal-certificate.jpg" alt="Chakravyuh Certificate" className="exp-img-portrait" />
           </div>
           <div className="exp-text">
             <div className="exp-label">🏅 IMSEC Sports Society · 2026–Present</div>
@@ -131,8 +131,8 @@ export default function About() {
         </div>
 
         <div className="exp-block" style={{ marginTop: '32px' }}>
-          <div className="exp-images">
-            <img src="/images/gfg-vp-seminar.jpg" alt="With GFG VP Chandan Jha" className="exp-img exp-img-main" style={{ objectFit: 'contain', background: 'rgba(0,0,0,0.4)' }} />
+          <div className="exp-images exp-images-portrait">
+            <img src="/images/gfg-vp-seminar.jpg" alt="With Chandan Jha (VP, GeeksforGeeks)" className="exp-img-portrait" />
           </div>
           <div className="exp-text">
             <div className="exp-label">💚 GeeksforGeeks Campus Mantri · Jan–Jun 2026</div>
