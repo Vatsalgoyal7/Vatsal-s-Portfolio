@@ -1,7 +1,7 @@
 /* ── Links ── */
 export const links = {
   github:    'https://github.com/Vatsalgoyal7',
-  linkedin:  'https://www.linkedin.com/in/vatsal-goyal-422b512a9/',
+  linkedin:  'https://www.linkedin.com/in/vatsalgoyal7/',
   instagram: 'https://www.instagram.com/vatsalgoyal.7/',
   email:     'vatsalgoyal77@gmail.com',
   whatsapp:  'https://wa.me/917452027691',
