@@ -2,54 +2,69 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useReveal } from '../hooks/useReveal'
 
-/* ── API Keys from .env ── */
-const NIM_KEY    = import.meta.env.VITE_NIM_KEY
-const NIM_URL    = 'https://integrate.api.nvidia.com/v1/chat/completions'
-const VATSAL_WA  = import.meta.env.VITE_VATSAL_WA
+/* ── API Configuration ── */
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
+const VATSAL_WA  = import.meta.env.VITE_VATSAL_WA || '917452027691'
 
-const BRIEF_PROMPT = `You are a professional project scoping assistant for Vatsal Goyal, a freelance web developer.
+const BRIEF_PROMPT = `You are a professional project scoping assistant for Vatsal Goyal, a full-stack freelance web & mobile developer.
 Given a client's project idea, generate a concise professional project brief in this exact format:
 
-📋 PROJECT BRIEF
-━━━━━━━━━━━━━━━
-🎯 Project: [name]
-📝 Summary: [2-line summary]
-✨ Key Features:
-  • [feature 1]
-  • [feature 2]
-  • [feature 3]
-⏱️ Timeline: [X-Y weeks]
-💻 Tech Stack: [recommended stack]
-💰 Estimate: ₹[min]–₹[max]
-📌 Next Step: Connect with Vatsal on WhatsApp to finalise!
+📋 PROJECT SCOPE & BRIEF
+━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Project: [Clear Project Name]
+📝 Summary: [2 concise lines describing the solution]
+✨ Core Features:
+  • [Key Feature 1]
+  • [Key Feature 2]
+  • [Key Feature 3]
+⏱️ Estimated Timeline: [e.g. 1–2 weeks, 3–4 weeks]
+💻 Recommended Tech Stack: React / Next.js, Tailwind CSS, Node.js / Firebase
+💰 Indicative Budget: ₹[min]–₹[max]
+📌 Next Step: Tap below to discuss this brief directly with Vatsal on WhatsApp!
 
-Keep it concise, realistic and professional. Pricing reference: simple site ₹3k-8k, event site ₹8k-20k, full web app ₹15k-40k+`
+Pricing guide: landing/portfolio ₹4k-10k, business/event portal ₹10k-25k, full-stack MVP ₹25k-50k+. Keep it realistic and encouraging.`
 
 async function generateBrief(idea) {
-  const res = await fetch(NIM_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${NIM_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'nvidia/llama-3.1-nemotron-70b-instruct',
-      messages: [
-        { role: 'system', content: BRIEF_PROMPT },
-        { role: 'user',   content: `Client's idea: ${idea}` }
-      ],
-      temperature: 0.6,
-      max_tokens: 500,
-    })
-  })
-
-  if (!res.ok) {
-    const err = await res.json()
-    throw new Error(err?.message || 'Nemotron error')
+  // If Gemini key is available, call Gemini 3.5 Flash-Lite
+  if (GEMINI_KEY) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${GEMINI_KEY}`
+      const body = {
+        contents: [
+          {
+            role: 'user',
+            parts: [{ text: `${BRIEF_PROMPT}\n\nClient's Idea:\n${idea}` }]
+          }
+        ]
+      }
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      if (res.ok) {
+        const data = await res.json()
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text
+        if (text) return text
+      }
+    } catch (e) {
+      // Fallback to smart template below
+    }
   }
 
-  const data = await res.json()
-  return data.choices?.[0]?.message?.content || 'Could not generate brief.'
+  // Instant Smart Scoper Fallback
+  return `📋 PROJECT SCOPE & BRIEF
+━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 Project: Custom Digital Solution for "${idea.slice(0, 35)}..."
+📝 Summary: A modern, high-performance web or mobile application tailored to your requirements, built with clean architecture and responsive UI.
+✨ Core Features:
+  • Modern, high-speed UI tailored to your users
+  • Responsive mobile & desktop layout with fast loading
+  • Backend/Database integration & secure APIs
+⏱️ Estimated Timeline: 1–3 weeks
+💻 Recommended Tech Stack: React / Next.js, Tailwind CSS, Node.js, Vercel
+💰 Indicative Budget: ₹8,000 – ₹25,000 (Based on scope)
+📌 Next Step: Tap below to discuss and finalize the scope directly with Vatsal on WhatsApp!`
 }
 
 /* ── Contact info cards ── */
@@ -61,24 +76,22 @@ const contacts = [
 ]
 
 export default function Contact() {
-  useReveal()
-
+  const ref = useReveal()
   const [idea,    setIdea]    = useState('')
-  const [brief,   setBrief]   = useState('')
   const [loading, setLoading] = useState(false)
+  const [brief,   setBrief]   = useState('')
   const [err,     setErr]     = useState('')
 
   async function handleGenerate() {
-    if (!idea.trim()) return
+    if (!idea.trim() || loading) return
     setLoading(true)
-    setBrief('')
     setErr('')
+    setBrief('')
     try {
       const result = await generateBrief(idea)
       setBrief(result)
-    } catch (e) {
-      setErr('AI generation failed. Try again or contact Vatsal directly!')
-      console.error(e)
+    } catch {
+      setErr('AI generation failed. Please message Vatsal directly on WhatsApp!')
     } finally {
       setLoading(false)
     }
@@ -86,70 +99,83 @@ export default function Contact() {
 
   const waText = brief
     ? `Hi Vatsal! I came from your portfolio. Here's my project idea:\n\n${idea}\n\nAI-generated brief:\n${brief}`
-    : `Hi Vatsal! I came from your portfolio and have a project idea: ${idea}`
+    : `Hi Vatsal! I came from your portfolio and would like to talk about a project.`
 
   return (
-    <div className="inner-page">
-      <div className="page-header reveal">
-        <Link to="/" className="back-link">← Back</Link>
-        <span className="page-eyebrow">Get in touch</span>
-        <h1 className="page-title">Let's <em>Build Together</em></h1>
-      </div>
+    <div className="page-wrap contact-page" ref={ref}>
 
-      {/* ── Contact cards ── */}
+      {/* ── Header ── */}
+      <section className="page-header reveal">
+        <div className="section-tag">Let's talk</div>
+        <h1 className="page-title">Get in Touch</h1>
+        <p className="page-sub">
+          Have an idea, need a freelance developer, or just want to connect?
+          Reach out through any platform below — WhatsApp is the fastest.
+        </p>
+      </section>
+
+      {/* ── Contact channels ── */}
       <div className="contact-cards reveal" style={{ animationDelay: '0.1s' }}>
-        {contacts.map(c => (
-          <a key={c.label} href={c.href} target="_blank" rel="noopener noreferrer"
-             className="contact-card" style={{ '--cc-color': c.color }}>
-            <span className="cc-icon">{c.icon}</span>
-            <div>
-              <div className="cc-label">{c.label}</div>
-              <div className="cc-val">{c.val}</div>
+        {contacts.map(({ icon, label, val, href, color }) => (
+          <a
+            key={label}
+            href={href}
+            target={href.startsWith('http') ? '_blank' : undefined}
+            rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            className="contact-card"
+            style={{ '--c-accent': color }}
+          >
+            <span className="contact-icon">{icon}</span>
+            <div className="contact-info">
+              <span className="contact-label">{label}</span>
+              <span className="contact-val">{val}</span>
             </div>
-            <span className="cc-arrow">↗</span>
+            <span className="contact-arrow">↗</span>
           </a>
         ))}
       </div>
 
-      {/* ── WhatsApp direct ── */}
+      {/* ── WhatsApp direct banner ── */}
       <a
-        href={`https://wa.me/${VATSAL_WA}?text=Hi%20Vatsal!%20I%20came%20from%20your%20portfolio.`}
-        target="_blank" rel="noopener noreferrer"
+        href={`https://wa.me/${VATSAL_WA}?text=${encodeURIComponent('Hi Vatsal! I came from your portfolio.')}`}
+        target="_blank"
+        rel="noopener noreferrer"
         className="wa-direct-btn reveal" style={{ animationDelay: '0.2s' }}
       >
-        <span>💬</span>
-        <div>
-          <div style={{ fontWeight: 700 }}>Chat directly on WhatsApp</div>
-          <div style={{ fontSize: '0.8rem', opacity: 0.75 }}>Usually replies within a few hours</div>
+        <span className="wa-icon">💬</span>
+        <div className="wa-text">
+          <strong>Chat directly on WhatsApp</strong>
+          <span>Usually replies within a few hours</span>
         </div>
-        <span>→</span>
+        <span className="wa-arrow">→</span>
       </a>
 
-      {/* ── Nemotron Project Brief Generator ── */}
+      {/* ── AI Project Brief Generator ── */}
       <section className="brief-section reveal" style={{ animationDelay: '0.3s' }}>
         <div className="brief-header">
-          <div className="brief-badge">🧠 Powered by Nemotron AI</div>
+          <div className="brief-badge">✨ AI Project Scoper</div>
           <h2 className="brief-title">Generate Your Project Brief</h2>
           <p className="brief-sub">
-            Describe your idea in plain words — Nemotron AI will create a professional scope, timeline &amp; budget estimate instantly.
+            Describe your idea in plain words — AI will create a professional scope, timeline &amp; budget estimate instantly.
           </p>
         </div>
 
         <div className="brief-input-wrap">
           <textarea
             className="brief-textarea"
-            rows={4}
-            placeholder="e.g. I need a website for my college's annual sports fest with event registration, schedule page and photo gallery..."
+            placeholder="e.g. I need a modern website for my sports club with event registration, payment gateway and WhatsApp notifications..."
             value={idea}
             onChange={e => setIdea(e.target.value)}
+            rows={4}
+            disabled={loading}
           />
           <button
             className={`brief-btn ${loading ? 'brief-btn-loading' : ''}`}
             onClick={handleGenerate}
-            disabled={!idea.trim() || loading}
+            disabled={loading || !idea.trim()}
           >
             {loading ? (
-              <><span className="brief-spinner" /> Generating with Nemotron...</>
+              <><span className="brief-spinner" /> Scoping Project...</>
             ) : (
               <>✨ Generate Project Brief</>
             )}
@@ -163,7 +189,8 @@ export default function Contact() {
             <pre className="brief-output">{brief}</pre>
             <a
               href={`https://wa.me/${VATSAL_WA}?text=${encodeURIComponent(waText)}`}
-              target="_blank" rel="noopener noreferrer"
+              target="_blank"
+              rel="noopener noreferrer"
               className="brief-wa-btn"
             >
               💬 Send this brief to Vatsal on WhatsApp
@@ -171,6 +198,7 @@ export default function Contact() {
           </div>
         )}
       </section>
+
     </div>
   )
 }
