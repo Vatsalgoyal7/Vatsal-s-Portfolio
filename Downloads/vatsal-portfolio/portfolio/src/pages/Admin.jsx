@@ -156,7 +156,7 @@ export default function Admin() {
       localStorage.setItem('vatsal_admin_auth', 'true')
       setPinErr('')
     } else {
-      setPinErr('Incorrect Passcode. Try: vatsal2026')
+      setPinErr('Incorrect Passcode. Access Denied.')
     }
   }
 
@@ -296,7 +296,6 @@ export default function Admin() {
               Unlock Dashboard 🚀
             </button>
           </form>
-          <p style={{ fontSize: '12px', color: '#64748b', marginTop: '16px' }}>Default passcode: <code>vatsal2026</code></p>
         </div>
       </div>
     )
