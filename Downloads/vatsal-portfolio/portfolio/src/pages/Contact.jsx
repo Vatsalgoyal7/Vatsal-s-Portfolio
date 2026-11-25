@@ -24,6 +24,15 @@ Given a client's project idea, generate a concise professional project brief in 
 Keep it concise, realistic and professional. Pricing reference: simple site ₹4k-8k, event site ₹8k-20k, full web app ₹15k-40k+`
 
 async function generateBrief(idea) {
+  const clean = idea.trim()
+  const lower = clean.toLowerCase()
+
+  // Smart Validation: Reject greetings, test strings, or overly vague 1-word inputs
+  const greetings = ['hi', 'hii', 'hiii', 'hello', 'hey', 'heyy', 'test', 'testing', 'yo', 'sup', 'ok', 'okay', 'bro', 'namaste']
+  if (greetings.includes(lower) || clean.length < 12 || !clean.includes(' ')) {
+    throw new Error('GREETING_OR_SHORT')
+  }
+
   if (GEMINI_KEY) {
     try {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${GEMINI_KEY}`
@@ -31,7 +40,7 @@ async function generateBrief(idea) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: `${BRIEF_PROMPT}\n\nClient's Idea: ${idea}` }] }]
+          contents: [{ parts: [{ text: `${BRIEF_PROMPT}\n\nClient's Idea: ${clean}` }] }]
         })
       })
       if (res.ok) {
@@ -42,18 +51,50 @@ async function generateBrief(idea) {
     } catch {}
   }
 
-  // Instant Smart Fallback Scoper
+  // Domain-aware Smart Scoper Fallback
+  let projectTitle = 'Custom Web Application'
+  let features = ['Responsive modern UI/UX design', 'Fast cloud hosting & SEO setup', 'Contact & WhatsApp integration']
+  let stack = 'React.js, Tailwind CSS, Node.js, Vercel'
+  let timeline = '1–2 weeks'
+  let estimate = '₹8,000 – ₹18,000'
+
+  if (lower.includes('ecommerce') || lower.includes('shop') || lower.includes('store') || lower.includes('cart')) {
+    projectTitle = 'E-Commerce Storefront & Order Platform'
+    features = ['Product catalog, search & filtering', 'Shopping cart + Razorpay/Stripe payment gateway', 'Admin dashboard for inventory & order tracking']
+    stack = 'Next.js, Tailwind CSS, Node.js, MongoDB/Firebase, Razorpay'
+    timeline = '3–4 weeks'
+    estimate = '₹18,000 – ₹35,000'
+  } else if (lower.includes('app') || lower.includes('mobile') || lower.includes('android') || lower.includes('ios')) {
+    projectTitle = 'Cross-Platform Mobile & PWA App'
+    features = ['Smooth native-like mobile experience (iOS & Android)', 'Push notifications & offline PWA support', 'Real-time database sync & user authentication']
+    stack = 'React Native / PWA, Firebase, Node.js'
+    timeline = '3–5 weeks'
+    estimate = '₹20,000 – ₹45,000'
+  } else if (lower.includes('ai') || lower.includes('bot') || lower.includes('gpt') || lower.includes('gemini')) {
+    projectTitle = 'AI-Powered Intelligent Web Platform'
+    features = ['Custom AI integration (Gemini / LLM workflows)', 'Interactive real-time chat & prompt interface', 'User session history & analytics dashboard']
+    stack = 'Next.js, Gemini API, Node.js, PostgreSQL/Firebase'
+    timeline = '2–4 weeks'
+    estimate = '₹18,000 – ₹40,000'
+  } else if (lower.includes('college') || lower.includes('event') || lower.includes('fest') || lower.includes('club')) {
+    projectTitle = 'Event Management & Registration Portal'
+    features = ['Multi-event registration & digital pass generation', 'Live schedule, leaderboards & photo gallery', 'Admin panel with data export & notifications']
+    stack = 'React.js, Firebase Firestore, Tailwind CSS, Vercel'
+    timeline = '1–2 weeks'
+    estimate = '₹10,000 – ₹22,000'
+  }
+
   return `📋 PROJECT BRIEF
 ━━━━━━━━━━━━━━━
-🎯 Project: Digital Solution for "${idea.slice(0, 30)}..."
-📝 Summary: A modern, high-performance web or mobile application built with clean architecture and responsive UI.
+🎯 Project: ${projectTitle}
+📝 Summary: A tailored digital solution designed around your requirement: "${clean.slice(0, 80)}${clean.length > 80 ? '...' : ''}". Built for speed, scalability, and user conversion.
 ✨ Key Features:
-  • Modern, high-speed UI tailored to your users
-  • Responsive mobile & desktop layout
-  • Backend/Database integration & secure APIs
-⏱️ Timeline: 1–3 weeks
-💻 Tech Stack: React / Next.js, Tailwind CSS, Node.js, Vercel
-💰 Estimate: ₹8,000 – ₹25,000
+  • ${features[0]}
+  • ${features[1]}
+  • ${features[2]}
+⏱️ Timeline: ${timeline}
+💻 Tech Stack: ${stack}
+💰 Estimate: ${estimate}
 📌 Next Step: Connect with Vatsal on WhatsApp to finalise!`
 }
 
@@ -102,7 +143,11 @@ export default function Contact() {
         localStorage.setItem('vatsal_client_leads', JSON.stringify([newLead, ...existing]))
       } catch {}
     } catch (e) {
-      setErr('AI generation failed. Try again or contact Vatsal directly!')
+      if (e.message === 'GREETING_OR_SHORT') {
+        setErr('👋 Hey! Please describe your actual project idea in 1–2 sentences (e.g. "I need an e-commerce website with payment integration") so AI can generate an accurate scope & estimate.')
+      } else {
+        setErr('AI generation failed. Try again or contact Vatsal directly!')
+      }
     } finally {
       setLoading(false)
     }
