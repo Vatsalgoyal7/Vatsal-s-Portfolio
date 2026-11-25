@@ -88,6 +88,28 @@ export default function Gallery() {
   useReveal()
   const [selectedItem, setSelectedItem] = useState(null)
 
+  // Merge admin-uploaded images
+  const adminItems = (() => {
+    try {
+      return JSON.parse(localStorage.getItem('vatsal_admin_gallery') || '[]')
+    } catch {
+      return []
+    }
+  })()
+
+  const allGalleries = [...GALLERY]
+  if (adminItems.length > 0) {
+    allGalleries.unshift({
+      category: '📸 Uploaded Photos & Recent Highlights',
+      items: adminItems.map(item => ({
+        img: item.src,
+        title: item.title,
+        sub: `${item.category} · Added ${item.uploadedAt} · ${item.sizeKB} KB`,
+        type: 'photo'
+      }))
+    })
+  }
+
   return (
     <div className="inner-page">
       <div className="page-header reveal">
