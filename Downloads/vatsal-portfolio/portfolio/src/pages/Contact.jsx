@@ -109,12 +109,19 @@ const contacts = [
 export default function Contact() {
   useReveal()
 
+  const [name,    setName]    = useState('')
+  const [phone,   setPhone]   = useState('')
+  const [email,   setEmail]   = useState('')
   const [idea,    setIdea]    = useState('')
   const [brief,   setBrief]   = useState('')
   const [loading, setLoading] = useState(false)
   const [err,     setErr]     = useState('')
 
   async function handleGenerate() {
+    if (!name.trim() || !phone.trim()) {
+      setErr('⚠️ Please enter your Name and WhatsApp / Phone number so Vatsal can contact you!')
+      return
+    }
     if (!idea.trim()) return
     setLoading(true)
     setBrief('')
@@ -123,12 +130,15 @@ export default function Contact() {
       const result = await generateBrief(idea)
       setBrief(result)
 
-      // Auto-save lead for CRM
+      // Auto-save lead with client details for CRM
       try {
         const existing = JSON.parse(localStorage.getItem('vatsal_client_leads') || '[]')
-        const isSpam = idea.trim().length < 8 || idea.trim().toLowerCase() === 'hii'
+        const isSpam = idea.trim().length < 12
         const newLead = {
           id: Date.now(),
+          name: name.trim(),
+          phone: phone.trim(),
+          email: email.trim() || 'Not provided',
           text: idea.trim(),
           timestamp: new Date().toLocaleString(),
           ai: {
@@ -205,6 +215,53 @@ export default function Contact() {
         </div>
 
         <div className="brief-input-wrap">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px', marginBottom: '10px', width: '100%' }}>
+            <input
+              type="text"
+              placeholder="Your Name *"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              style={{
+                padding: '10px 14px',
+                borderRadius: '10px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#ffffff',
+                fontSize: '0.9rem',
+                outline: 'none'
+              }}
+            />
+            <input
+              type="tel"
+              placeholder="WhatsApp / Phone *"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              style={{
+                padding: '10px 14px',
+                borderRadius: '10px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#ffffff',
+                fontSize: '0.9rem',
+                outline: 'none'
+              }}
+            />
+            <input
+              type="email"
+              placeholder="Email (optional)"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              style={{
+                padding: '10px 14px',
+                borderRadius: '10px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#ffffff',
+                fontSize: '0.9rem',
+                outline: 'none'
+              }}
+            />
+          </div>
           <textarea
             className="brief-textarea"
             rows={4}
@@ -215,7 +272,7 @@ export default function Contact() {
           <button
             className={`brief-btn ${loading ? 'brief-btn-loading' : ''}`}
             onClick={handleGenerate}
-            disabled={!idea.trim() || loading}
+            disabled={!idea.trim() || !name.trim() || !phone.trim() || loading}
           >
             {loading ? (
               <><span className="brief-spinner" /> Generating with Nemotron...</>

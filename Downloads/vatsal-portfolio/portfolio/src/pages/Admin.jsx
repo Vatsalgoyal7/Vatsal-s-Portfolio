@@ -174,6 +174,9 @@ export default function Admin() {
   function addSampleLead() {
     const sample = {
       id: Date.now(),
+      name: 'Rohan Sharma',
+      phone: '+91 9876543210',
+      email: 'rohan@startup.in',
       text: 'Need a complete sports tournament portal with online registration, bracket generation and WhatsApp notification for 1,200 players.',
       timestamp: new Date().toLocaleString(),
       ai: analyzeLeadWithAI('Need a complete sports tournament portal with online registration, bracket generation and WhatsApp notification for 1,200 players.')
@@ -519,6 +522,26 @@ export default function Admin() {
                     "{lead.text}"
                   </p>
 
+                  {/* Client Contact Details */}
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '16px',
+                    fontSize: '13px',
+                    color: '#cbd5e1',
+                    background: 'rgba(124, 58, 237, 0.08)',
+                    border: '1px solid rgba(124, 58, 237, 0.2)',
+                    padding: '10px 14px',
+                    borderRadius: '10px',
+                    marginBottom: '12px'
+                  }}>
+                    <span>👤 <strong>{lead.name || 'Anonymous'}</strong></span>
+                    <span>📱 <strong>{lead.phone || 'No Phone'}</strong></span>
+                    {lead.email && lead.email !== 'Not provided' && (
+                      <span>📧 <strong>{lead.email}</strong></span>
+                    )}
+                  </div>
+
                   {/* AI Executive Summary Card */}
                   <div style={{
                     background: 'rgba(0,0,0,0.3)',
@@ -542,25 +565,49 @@ export default function Admin() {
                   </div>
 
                   <div style={{ display: 'flex', gap: '10px' }}>
-                    <a
-                      href={`https://wa.me/917452027691?text=${encodeURIComponent(`Hi! Regarding your project inquiry: "${lead.text.slice(0, 50)}..."`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        background: '#25D366',
-                        color: '#ffffff',
-                        padding: '6px 14px',
-                        borderRadius: '8px',
-                        fontSize: '12.5px',
-                        fontWeight: '700',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      💬 Reply on WhatsApp
-                    </a>
+                    {lead.phone ? (
+                      <a
+                        href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi ${lead.name || 'there'}! Thanks for submitting your project idea on my portfolio: "${lead.text.slice(0, 50)}...". Let's discuss!`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          background: '#25D366',
+                          color: '#ffffff',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          fontSize: '12.5px',
+                          fontWeight: '700',
+                          textDecoration: 'none'
+                        }}
+                      >
+                        💬 Message {lead.name || 'Client'} on WhatsApp
+                      </a>
+                    ) : (
+                      <span style={{ fontSize: '12px', color: '#64748b', padding: '6px 0' }}>No client number provided</span>
+                    )}
+                    {lead.email && lead.email !== 'Not provided' && (
+                      <a
+                        href={`mailto:${lead.email}?subject=Regarding your project enquiry`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '6px',
+                          background: 'rgba(56, 189, 248, 0.15)',
+                          border: '1px solid rgba(56, 189, 248, 0.35)',
+                          color: '#38bdf8',
+                          padding: '6px 14px',
+                          borderRadius: '8px',
+                          fontSize: '12.5px',
+                          fontWeight: '600',
+                          textDecoration: 'none'
+                        }}
+                      >
+                        📧 Email
+                      </a>
+                    )}
                     <button
                       onClick={() => deleteLead(lead.id)}
                       style={{
