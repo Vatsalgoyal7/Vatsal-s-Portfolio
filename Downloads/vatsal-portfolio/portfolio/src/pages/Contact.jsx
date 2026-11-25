@@ -55,7 +55,7 @@ async function generateBrief(idea) {
 /* ── Contact info cards ── */
 const contacts = [
   { icon: '📧', label: 'Email',     val: 'vatsalgoyal77@gmail.com',          href: 'mailto:vatsalgoyal77@gmail.com',         color: '#7c3aed' },
-  { icon: '💼', label: 'LinkedIn',  val: 'linkedin.com/in/vatsal-goyal',     href: 'https://www.linkedin.com/in/vatsal-goyal-422b512a9/', color: '#0ea5e9' },
+  { icon: '💼', label: 'LinkedIn',  val: 'linkedin.com/in/vatsalgoyal7',     href: 'https://www.linkedin.com/in/vatsalgoyal7/', color: '#0ea5e9' },
   { icon: '💻', label: 'GitHub',    val: 'github.com/Vatsalgoyal7',          href: 'https://github.com/Vatsalgoyal7',        color: '#a78bfa' },
   { icon: '📸', label: 'Instagram', val: '@vatsalgoyal.7',                   href: 'https://www.instagram.com/vatsalgoyal.7/', color: '#ec4899' },
 ]

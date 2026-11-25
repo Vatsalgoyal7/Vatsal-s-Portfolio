@@ -14,7 +14,7 @@ About Vatsal:
 - 3rd year B.Tech CSE student at IMSEC (IMS Engineering College, Ghaziabad, AKTU)
 - Full-stack developer, UI designer, freelancer, startup founder
 - Email: vatsalgoyal77@gmail.com | WhatsApp: +91 7452027691
-- GitHub: github.com/Vatsalgoyal7 | LinkedIn: linkedin.com/in/vatsal-goyal-422b512a9
+- GitHub: github.com/Vatsalgoyal7 | LinkedIn: linkedin.com/in/vatsalgoyal7
 - Resume: ${RESUME_URL}
 
 Skills: React, Next.js, TypeScript, JavaScript, Node.js, Python, Django, MongoDB, Firebase, SQL, Supabase, Vercel, Cloudflare, Ethereum/Blockchain, Gemini API, Claude API, OpenAI API
@@ -64,7 +64,7 @@ function getLocalAnswer(query) {
   }
 
   if (q.includes('contact') || q.includes('email') || q.includes('whatsapp') || q.includes('phone') || q.includes('reach')) {
-    return `📬 **Get in Touch with Vatsal:**\n\n• **Email:** vatsalgoyal77@gmail.com\n• **WhatsApp:** +91 7452027691\n• **LinkedIn:** [linkedin.com/in/vatsal-goyal-422b512a9](https://www.linkedin.com/in/vatsal-goyal-422b512a9/)\n• **GitHub:** [github.com/Vatsalgoyal7](https://github.com/Vatsalgoyal7)\n\nHe responds fastest on WhatsApp! Say hi anytime! 👋`
+    return `📬 **Get in Touch with Vatsal:**\n\n• **Email:** vatsalgoyal77@gmail.com\n• **WhatsApp:** +91 7452027691\n• **LinkedIn:** [linkedin.com/in/vatsalgoyal7](https://www.linkedin.com/in/vatsalgoyal7/)\n• **GitHub:** [github.com/Vatsalgoyal7](https://github.com/Vatsalgoyal7)\n\nHe responds fastest on WhatsApp! Say hi anytime! 👋`
   }
 
   if (q.includes('who') || q.includes('about') || q.includes('background') || q.includes('college') || q.includes('education') || q.includes('imsec')) {
